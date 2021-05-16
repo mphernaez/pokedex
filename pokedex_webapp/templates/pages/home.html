@@ -9,23 +9,7 @@
         <div class="col-6">
             <img src="https://pngimg.com/uploads/pokeball/pokeball_PNG24.png" class="pokeball mx-auto d-block mb-5" alt="Responsive image">
             <table class="table table-striped table-dark">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for p in pokemon%}
-                  <tr class='clickable-row' data-href='http://localhost:8080/pokemon/{{p.id}}'>
-                    <th scope="row">{{p.id}}</th>
-                    <td>{{p.name}}</td>
-                    <td><span class="badge badge-primary">{{p.main_type.name}}</span>{% if p.sub_type%} &nbsp;  <span class="badge badge-secondary">{{p.sub_type.name}}</span>{% endif %}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+            {% include "components/pokemon_list.html" %}
         </div>
         <div class="col-3"></div>
     </div>

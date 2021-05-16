@@ -1,0 +1,66 @@
+{% extends "../base.html" %}
+{% block style %}
+{% endblock style %}
+{% block content %}
+
+<div class="main">
+    
+    <div class="col-12">
+        <div class="col-3 pl-5 ml-5 pokemon-details">
+            <a href="http://localhost:8000/pokemon/" class="list">
+                <p class="h5">
+                    <i class="fas fa-arrow-left"></i> &nbsp; Back to List 
+                </p>
+            </a>
+            
+        </div>
+        <div class="col-6">
+            
+            
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-3">
+                <div class="float-right p-5">
+                    <a href="http://localhost:8000/pokemon/{{ pokemon.id|add:"-1"}}">
+                        {% if pokemon.prev != '' %}
+                        <p class="h4 text-light-grey "><i class="fas fa-chevron-left"></i> #{{ pokemon.prev|stringformat:"03d"}}</p>
+                    {% endif %}
+                    </a>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="{{pokemon.sprite}}" class="pokeball mx-auto d-block mb-5" alt="Responsive image">
+                    </div>
+                    <div class="col-6 p-5">
+                        <p class="h5 text-muted">#{{pokemon.id|stringformat:"03d"}}</p>
+                        <p class="h2"> {{pokemon.name | title}}</p>
+                        <span class="badge badge-secondary">{{pokemon.main_type.name}}</span>{% if pokemon.sub_type%} &nbsp;  <span class="badge badge-secondary">{{pokemon.sub_type.name}}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="float-left p-5">
+                    {% if pokemon.next != '' %}
+                        <a href="http://localhost:8000/pokemon/{{ pokemon.id|add:"1"}}" class="list">
+                            <p class="h4 text-light-grey">#{{ pokemon.next|stringformat:"03d"}} <i class="fas fa-chevron-right"></i></p>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+  $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+</script>
+{% endblock javascript %}

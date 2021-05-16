@@ -5,3 +5,20 @@
 .pokeball {
     width: 200px;
 }
+
+.pokemon-details {
+    margin: 100px;
+    
+}
+
+a:hover{
+    text-decoration: none !important;
+}
+
+tbody tr:hover{
+    background: #33393f;    
+}
+
+.text-light-grey {
+    color: #96a0aa !important;
+}

@@ -19,5 +19,6 @@ from pokemon import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('pokemon/', views.home),
+    path('pokemon/<str:order>/', views.pokemon),
 ]
