@@ -22,3 +22,15 @@ tbody tr:hover{
 .text-light-grey {
     color: #96a0aa !important;
 }
+
+.input-lg {
+    font-size: 1.5rem !important;
+  }
+
+  .btn:active{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: none;
+    transition: none;
+}
+  

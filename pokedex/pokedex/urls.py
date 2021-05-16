@@ -20,7 +20,8 @@ from pokemon import views
 
 
 router = routers.DefaultRouter()
-router.register(r'pokemon', views.PokemonViewSet)
+router.register(r'pokemon', views.PokemonView)
+router.register(r'type', views.TypeView)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
