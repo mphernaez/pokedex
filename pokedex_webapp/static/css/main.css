@@ -3,12 +3,30 @@
 }
 
 .pokeball {
-    width: 200px;
+    height: 200px;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .pokemon-details {
     margin: 100px;
     
+}
+
+
+.add-button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #fcc857; /* Green */
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #e44b4b; /* Green */
+    color: white;
 }
 
 a:hover{
@@ -25,12 +43,21 @@ tbody tr:hover{
 
 .input-lg {
     font-size: 1.5rem !important;
-  }
+}
 
-  .btn:active{
+.btn:active{
     -webkit-box-shadow: none;
     box-shadow: none;
     -webkit-transition: none;
     transition: none;
+}
+
+#edit-photo{
+    float: right;
+    position: absolute;
+}
+
+.pokemon-details {
+    padding-top: 7rem !important;
 }
   

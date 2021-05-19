@@ -23,8 +23,33 @@ def get_type():
     else:
         return None
 
+def new_pokemon(request):
+    response = requests.post(settings.API_URL + 'pokemon/', request )
+    if response.status_code == 200:
+        json_response = response.json()
+        return json_response
+    else:
+        return None
+
 def edit_pokemon(request, order):
     response = requests.put(settings.API_URL + 'pokemon/' + str(order) + '/', request )
+    if response.status_code == 200:
+        json_response = response.json()
+        return json_response
+    else:
+        return None
+
+def delete_pokemon(request, order):
+    response = requests.delete(settings.API_URL + 'pokemon/' + str(order) + '/')
+        
+    if response.status_code == 200:
+        json_response = response.json()
+        return json_response
+    else:
+        return None
+
+def create_sprite(request, order=None):
+    response = requests.post(settings.API_URL  +'pokemon/' + str(order) + '/' + 'upload-sprite/', files=request)
         
     if response.status_code == 200:
         json_response = response.json()

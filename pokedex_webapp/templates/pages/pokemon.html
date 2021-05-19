@@ -6,9 +6,9 @@
 <div class="main">
     <div class="col-12">
         <div class="col-3 pl-5 ml-5 pokemon-details">
-            <a href="http://localhost:8000/pokemon/" class="list">
-                <p class="h5">
-                    <i class="fas fa-arrow-left"></i> &nbsp; Back to List 
+            <a href="{% url 'home' %}" class="list">
+                <p class="h5 text-muted float-right">
+                    <i class="fas fa-arrow-left"></i> &nbsp; Back to Pokedex List 
                 </p>
             </a>
             
@@ -19,7 +19,7 @@
         <div class="row mt-5">
             <div class="col-3">
                 <div class="float-right p-5">
-                    <a href="http://localhost:8000/pokemon/{{pokemon.prev}}">
+                    <a href="{% url 'home' %}{{pokemon.prev}}">
                         {% if pokemon.prev != '' %}
                         <p class="h4 text-light-grey "><i class="fas fa-chevron-left"></i> #{{ pokemon.prev|stringformat:"03d"}}</p>
                     {% endif %}
@@ -27,22 +27,45 @@
                 </div>
             </div>
             <div class="col-6">
-                <div class="row">
+                <div class="row" id="details">
                     <div class="col-6">
-                        <img src="{{pokemon.sprite}}" class="pokeball mx-auto d-block mb-5" alt="Responsive image">
+                        <img src="{{ MEDIA_URL }}{{pokemon.sprite}}" class="pokeball mx-auto d-block mb-5" alt="Responsive image">
                     </div>
                     <div class="col-6 p-3">
-                        <div id="details">
+                        <div>
                             <p class="h5 text-muted">#{{pokemon.id|stringformat:"03d"}}</p>
                             <p class="h2"> {{pokemon.name | title}}</p>
                             <span class="badge badge-secondary">{{pokemon.main_type.name}}</span>{% if pokemon.sub_type%} &nbsp;  <span class="badge badge-secondary">{{pokemon.sub_type.name}}</span>{% endif %}
                             <br>
                             <div class="buttons pt-3">
-                                <button id="edit-pokemon" type="button" class="btn btn-muted"><i class="fas fa-pencil-alt"></i></button>
-                                <button type="button" class="btn btn-muted"><i class="fas fa-trash"></i></button>
+                                <button id="edit-pokemon" type="button" class="btn btn-muted edit-button"><i class="fas fa-pencil-alt"></i></button>
+                                <button id="delete-pokemon" type="button" class="btn btn-muted delete-button"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        <div id="details-edit" class="d-none">
+                    </div>
+                </div>
+                <div class="row d-none" id="details-edit">
+                    <div id="edit-sprite" class="col-6">
+                        <!-- <a id="edit-photo" href="#">
+                            <p id="edit-photo-button" class="text-muted">
+                                Edit  <i class="fa fa-pencil-alt"></i>
+                            </p> 
+                        </a> -->
+                        <img id="pokemon-sprite-edit" data-current-sprite="{{ MEDIA_URL }}{{pokemon.sprite}}" src="{{ MEDIA_URL }}{{pokemon.sprite}}" class="pokeball mx-auto d-block pb-1" alt="Responsive image">
+                        <div class="row">
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="pokemon-sprite-upload" placeholder="Img" accept=".jpg, .jpeg, .png">
+                                <span id='reset-sprite' class="input-group-addon pt-3 pl-3">
+                                    <i class="fa fa-times text-muted float-right"></i>
+                                </span>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="col-6">
+                        <div class="">
                             <form id='edit-form'>
                                 <input type="hidden" class="form-control input-lg" id="pokemon-id" placeholder="Name" value="{{pokemon.id}}">
                                 {% csrf_token %}
@@ -64,9 +87,7 @@
                                         <div class="float-right">
                                             <label for="sub-type-selection" class="pl-2"> Sub-type:</label>
                                             <select class="form-select btn-muted" id='sub-type-selection' aria-label="Default select example">
-                                                {% if not pokemon.sub_type %}
-                                                    <option value="0" selected>None</option>
-                                                {% endif %}
+                                                <option value="0" selected>None</option>
                                                 {% for type in types%}
                                                     <option value="{{type.id}}" {% if pokemon.sub_type.id == type.id %} selected {% endif %}>{{type.name|title}}</option>
                                                 {% endfor %}
@@ -85,7 +106,7 @@
                                 
                                 <div class="float-right">
                                     <button id="cancel-edit" type="button" class="btn btn-light-gray">Cancel</button>
-                                    <button id="submit-form" type="button" class="btn btn-info">Save</button>
+                                    <button id="submit-edit-form" type="button" class="btn btn-info" data-base-url="{{BASE_URL}}" data-id="{{pokemon.id}}" >Save</button>
                                 </div>
                                 
                             </form>
@@ -96,7 +117,7 @@
             <div class="col-3">
                 <div class="float-left p-5">
                     {% if pokemon.next != '' %}
-                        <a href="http://localhost:8000/pokemon/{{pokemon.next}}" class="list">
+                        <a href="{% url 'home' %}{{pokemon.next}}" class="list">
                             <p class="h4 text-light-grey">#{{ pokemon.next|stringformat:"03d"}} <i class="fas fa-chevron-right"></i></p>
                         </a>
                     {% endif %}

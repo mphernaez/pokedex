@@ -1,0 +1,70 @@
+<div class="row d-none pokemon-details mt-5" id="create-pokemon">
+        <!-- <a id="edit-photo" href="#">
+            <p id="edit-photo-button" class="text-muted">
+                Edit  <i class="fa fa-pencil-alt"></i>
+            </p> 
+        </a> -->
+        <div class="col-6">
+            <img id="pokemon-sprite-edit" data-current-sprite="{{ MEDIA_URL }}{{pokemon.sprite}}" src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image-300x225.png" class="pokeball mx-auto d-block pt-5" alt="Responsive image">
+            <div class="input-group px-5">
+                <input type="file" class="form-control" id="pokemon-sprite-upload" placeholder="Img" accept=".jpg, .jpeg, .png">
+                <span id='reset-sprite' class="input-group-addon pt-3 pl-3">
+                    <i class="fa fa-times text-muted float-right"></i>
+                </span>
+            </div>
+        </div>
+        
+
+        <div class="col-6">
+            <div class="">
+                <form id='create-form'>
+                    <input type="hidden" class="form-control input-lg" id="pokemon-id" placeholder="Name" value="{{pokemon.id}}">
+                    {% csrf_token %}
+                    {% with pokemon|last as last %}
+                        <p class="h5 text-muted">#{{ last.id|add:1|stringformat:"03d" }}</p>
+                    {% endwith %}
+                    <div class="form-group">
+                      <input type="text" class="form-control input-lg" id="pokemon-name" placeholder="Name" value="{{pokemon.name|title}}">
+                    </div>
+                    
+                    <div class="row pl-3">
+                        <div class="form-group">
+                            <div class="float-left">
+                                <label for="main-type-selection"> Main-type:</label>
+                                <select class="form-select btn-muted" id='main-type-selection' value='{{' aria-label="Default select example">
+                                    {% for type in types%}
+                                        <option value="{{type.id}}" {% if type.id == 1 %} selected {% endif %}>{{type.name|title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="float-right">
+                                <label for="sub-type-selection" class="pl-2"> Sub-type:</label>
+                                <select class="form-select btn-muted" id='sub-type-selection' aria-label="Default select example">
+                                    <option value="0" selected>None</option>
+                                    {% for type in types%}
+                                        <option value="{{type.id}}" {% if pokemon.sub_type.id == type.id %} selected {% endif %}>{{type.name|title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <small id="type-error" class="text-danger">
+                                </small>
+                            </div>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                   
+                    
+                    <div class="float-right">
+                        <button id="cancel-edit" type="button" class="btn btn-light-gray">Cancel</button>
+                        <button id="submit-create-form" type="button" class="btn btn-info" data-base-url="{{BASE_URL}}" data-id="{{pokemon.id}}" >Save</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>  
+            
+        </div>
+</div>

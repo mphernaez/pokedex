@@ -19,6 +19,8 @@ from pokemon import views
 
 urlpatterns = [
     path('', lambda request: redirect('pokemon/', permanent=True)),
-    path('pokemon/', views.home),
-    path('pokemon/<str:order>/', views.pokemon),
+    path('pokemon/', views.home, name='home'),
+    path('pokemon/create/', views.create_pokemon, name='create-pokemon'),
+    path('pokemon/<str:order>/', views.pokemon, name='pokemon'),
+    path('pokemon/<str:order>/upload-sprite/', views.upload_sprite, name='upload_sprite'),
 ]

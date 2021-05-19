@@ -1,8 +1,15 @@
+from urllib.request import urlopen
+from django.core.files import File
 from django.db import models
+from django.core.files.temp import NamedTemporaryFile
+
+
+def sprite_file(self, filename):
+    return '/'.join( ['sprite', str(self.id)], filename)
 
 class Pokemon(models.Model):
     name = models.CharField(max_length=100, blank=False)
-    sprite = models.CharField(max_length=100, blank=False, default='')
+    sprite = models.ImageField(upload_to='sprite_file', blank=True)
     main_type = models.ForeignKey('pokemon.Type', on_delete=models.PROTECT, related_name='main_type', default=None)
     sub_type = models.ForeignKey('pokemon.Type', on_delete=models.PROTECT, related_name='sub_type', default=None, null=True)
 
@@ -28,6 +35,11 @@ class Pokemon(models.Model):
                 id+=1
         return n_item
 
+    def get_sprite(self, url):
+        img_temp = NamedTemporaryFile(delete=True)
+        img_temp.write(urlopen(url).read())
+        img_temp.flush()
+        self.sprite.save(self.name + ".png", File(img_temp))
 
 class Type(models.Model):
     name = models.CharField(max_length=100, blank=False)
