@@ -14,6 +14,8 @@ class Command(BaseCommand):
         parser.add_argument('limit', nargs='+', type=int)
 
     def handle(self, *args, **options):
+
+        #initalize types
         try:
             ts = Type.objects.get(id=1)
             print('types already exist')
@@ -28,6 +30,8 @@ class Command(BaseCommand):
                     name=t['name'],
                 ).save()
                 number+=1
+
+        #initalize pokemon from 1 to {{limit}}
         limit = options['limit'][0]
         number = 1
 
@@ -38,7 +42,6 @@ class Command(BaseCommand):
             pokemon = r.json()
             p = Pokemon.objects.create(
                 name=pokemon['name'],
-                # sprite=pokemon['sprites']['front_default'],
                 main_type=Type.objects.get(name=pokemon['types'][0]['type']['name']),
             )
 
@@ -46,7 +49,7 @@ class Command(BaseCommand):
             p.get_sprite(url)
             p.save()
 
-            print(p.sprite)
+            print(p.name)
             try:
                 p.sub_type=Type.objects.get(
                     name=pokemon['types'][1]['type']['name'],

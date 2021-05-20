@@ -24,6 +24,9 @@ class PokemonView(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
     def create(self, request):
+        #create new pokemon
+        #return new pokemon id
+
         data = request.POST
         pokemon = Pokemon.objects.create(
             name=request.POST.get('name'),
@@ -37,6 +40,7 @@ class PokemonView(viewsets.ModelViewSet):
         return HttpResponse(json.dumps({'status': 200, 'id': pokemon.id}), status=200)
 
     def update(self, request, pk):
+        #update pokemon
 
         pokemon = Pokemon.objects.get(id=pk)
         pokemon.name = request.POST.get('name', pokemon.name)
@@ -53,11 +57,12 @@ class PokemonView(viewsets.ModelViewSet):
 
     @action(methods=['post'], url_path="upload-sprite", detail=True)
     def upload_sprite(self, request, pk):
+        #upload new sprite for pokemon
+
         file = request.FILES['sprite']
         pokemon = Pokemon.objects.get(id=pk)
         pokemon.sprite.save(pokemon.name + ".png", file)
         return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
-
 
 
 class TypeView(viewsets.ModelViewSet):
