@@ -8,11 +8,10 @@ pokedex/ <br />
 # istallation guide
 - pokedex (api)
 1. pip install -r requirements.txt
-2. python manage.py makemigrations
-3. python manage.py migrate
-4. python manage.py init_pokemon 151
-5. python manage.py createsuperuser
-6. python manage.py runserver 127.0.0.1:8080
+2. python manage.py migrate
+3. python manage.py init_pokemon 151
+4. python manage.py createsuperuser
+5. python manage.py runserver 127.0.0.1:8080
 
 
 - pokedex_webapp (website)
