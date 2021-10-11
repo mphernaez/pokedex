@@ -5,7 +5,7 @@ pokedex/ <br />
 ├─ pokedex_webapp/ <br />
 ├─ README.md <br />
 
-# istallation guide
+# installation guide
 - pokedex (api)
 1. pip install -r requirements.txt
 2. python manage.py migrate
